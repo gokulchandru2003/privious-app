@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html ng-app="studentPortalApp">
+
+<head>
+  <title>Students Portal</title>
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="RegistrationController">
+
+  <form id="full-form" name="registrationForm" action="#" novalidate>
+    <div class="container">
+      <div class="form-head">
+        <h3>Student Portal</h3>
+        <h1>Registration Form</h1>
+
+        <div class="form" id="form">
+          <div class="form-inputs">
+          Name:
+          <input type="text" name="name" ng-model="name" placeholder="Enter your name" required>
+
+          Age:
+          <input type="number" name="age" ng-model="age" placeholder="Enter your age" required>
+
+          <div class="form-gender">
+            Gender:
+            <input type="radio" name="gender" ng-model="gender" value="Male" required="">Male
+            <input type="radio" name="gender" ng-model="gender" value="Female" required="">Female
+          </div>
+
+          Date of Birth:
+          <input type="date" name="dob" ng-model="dob" required>
+
+          Number:
+          <input type="number" name="number" ng-model="number" placeholder="Enter your mobile number" required>
+
+          Gmail:
+          <input type="email" name="gmail" ng-model="gmail" placeholder="Enter your email" required>
+        </div>
+
+        <button type="button" ng-click="submit()">SUBMIT</button>
+        </div>
+      </div>
+    </div>
+
+    <table border="4" id="show">
+      <tr>
+        <th>NAME</th>
+        <th>AGE</th>
+        <th>GENDER</th>
+        <th>DOB</th>
+        <th>NUMBER</th>
+        <th>GMAIL ID</th>
+      </tr>
+      <tr ng-repeat="student in students">
+        <td>{{ student.name }}</td>
+        <td>{{ student.age }}</td>
+        <td>{{student.gender}}</td>
+        <td>{{ student.dob | date:'dd/MM/yyyy' }}</td>
+        <td>{{ student.number }}</td>
+        <td>{{ student.gmail }}</td>
+      </tr>
+    </table>
+  </form>
+
+  <script>
+    var app = angular.module('studentPortalApp', []);
+
+app.controller('RegistrationController', function ($scope, $http) {
+  $scope.students = [];
+
+  $scope.submit = function () {
+    if ($scope.registrationForm.$valid) {
+      
+
+      // ... Your validation code ...
+      var nameRegex = /^[a-zA-Z\s]+$/; 
+      var ageRegex = /^\d{2}$/; 
+      var numberRegex = /^\d{10}$/;
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if( $scope.name.length<5 || !nameRegex.test($scope.name) ){
+            alert("Name have minimum 5 letters and alphabet only!!");
+
+          }else if( !ageRegex.test($scope.age) ){
+            alert("Enter valid Age");
+
+          }else if( !numberRegex.test($scope.number) ){
+            alert("Please enter 10 digit NUMBER");
+
+          }else if( !emailRegex.test($scope.gmail) ){
+            alert("Please enter valid EMAIL ID!!");
+
+          }else{
+          var student = {
+            name: $scope.name,
+            age: $scope.age,
+            gender: $scope.gender,
+            dob: $scope.dob,
+            number: $scope.number,
+            gmail: $scope.gmail
+          }
+
+          $scope.students.push(student);
+
+          // Clear form fields
+          $scope.name = '';
+          $scope.age = '';
+          $scope.gender = '';
+          $scope.dob = '';
+          $scope.number = '';
+          $scope.gmail = '';
+           alert("Form submitted.");
+         }
+
+      $http.post('http://localhost:3080/submit',{"name":$scope.name},function (err,data) {
+        console.log(err);
+        console.log(data );
+        // body...
+      } )
+        .then(function (response) {
+          console.log("Form successfully stored in database:", response.data);
+          alert("Form successfully stored in database.");
+        })
+        .catch(function (error) {
+          console.log("Error submitting form:", error);
+          alert("Error submitting form. Please check the console for details.");
+        });
+
+    } else {
+      alert("Please, Fill All Details and SUBMIT Form");
+    }
+  }
+
+
+});
+
+  
+
+
+  </script>
+
+</body>
+
+</html>
+
+
+

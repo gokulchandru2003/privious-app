@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html ng-app="studentPortalApp">
+
+<head>
+  <title>University Students Portal</title>
+  <link rel="stylesheet" type="text/css" href="app.component.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="RegistrationController">
+
+  <form id="full-form" name="registrationForm" ng-submit="submitForm()" novalidate>
+    <div class="container">
+      <div class="form-head">
+        <h3>University Students Portal</h3>
+        <h1>Registration Form</h1>
+
+        <div class="form" id="form">
+          Name:
+          <input type="text" name="name" ng-model="name" placeholder="Enter your name" required>
+          <div ng-if="registrationForm.name.$invalid && !registrationForm.name.$pristine" class="error-message">
+            Name is required.
+          </div>
+
+          Age:
+          <input type="number" name="age" ng-model="age" placeholder="Enter your age" required>
+          <div ng-if="registrationForm.age.$invalid && !registrationForm.age.$pristine" class="error-message">
+            Age is required.
+          </div>
+
+          <div class="form-gender">
+            Gender:
+            <input type="radio" name="gender" ng-model="gender" value="Male" required> Male
+            <input type="radio" name="gender" ng-model="gender" value="Female" required> Female
+            <div ng-if="registrationForm.gender.$invalid && !registrationForm.gender.$pristine" class="error-message">
+              Gender is required.
+            </div>
+          </div>
+
+          Date of Birth:
+          <input type="date" name="dob" ng-model="dob" required>
+          <div ng-if="registrationForm.dob.$invalid && !registrationForm.dob.$pristine" class="error-message">
+            Date of Birth is required.
+          </div>
+
+          Number:
+          <input type="number" name="number" ng-model="number" placeholder="Enter your mobile number" required>
+          <div ng-if="registrationForm.number.$invalid && !registrationForm.number.$pristine" class="error-message">
+            Number is required.
+          </div>
+
+          Gmail:
+          <input type="email" name="gmail" ng-model="gmail" placeholder="Enter your email" required>
+          <div ng-if="registrationForm.gmail.$invalid && !registrationForm.gmail.$pristine" class="error-message">
+            Email is required and must be a valid email address.
+          </div>
+        </div>
+
+        <button type="submit" ng-disabled="registrationForm.$invalid">SUBMIT</button>
+      </div>
+    </div>
+
+    <table border="4" id="show">
+      <tr>
+        <th>NAME</th>
+        <th>AGE</th>
+        <th>GENDER</th>
+        <th>DOB</th>
+        <th>NUMBER</th>
+        <th>GMAIL ID</th>
+      </tr>
+      <tr ng-repeat="student in students">
+        <td>{{ student.name }}</td>
+        <td>{{ student.age }}</td>
+        <td>{{student.gender}}</td>
+        <td>{{ student.dob }}</td>
+        <td>{{ student.number }}</td>
+        <td>{{ student.gmail }}</td>
+      </tr>
+    </table>
+  </form>
+
+  <script>
+    var app = angular.module('studentPortalApp', []);
+
+    app.controller('RegistrationController', function ($scope) {
+      $scope.students = [];
+
+      $scope.submitForm = function () {
+        if ($scope.registrationForm.$valid) {
+          var student = {
+            name: $scope.name,
+            age: $scope.age,
+            gender: $scope.gender,
+            dob: $scope.dob,
+            number: $scope.number,
+            gmail: $scope.gmail
+          }
+
+          $scope.students.push(student);
+
+          // Clear form fields
+          $scope.name = '';
+          $scope.age = '';
+          $scope.gender = '';
+          $scope.dob = '';
+          $scope.number = '';
+          $scope.gmail = '';
+        }
+      };
+    });
+  </script>
+
+</body>
+
+</html>

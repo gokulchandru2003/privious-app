@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<title>This is  my mean application</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<script src="script.js"></script>
+	
+</head>
+<body>
+	<form id="full-form" action="#">
+	<div class="container">
+		<div class="form-head">
+	<h3>  University StudentS Portal</h3>
+	<h1>Registration Form</h1>
+
+	<div class="form" id="form">
+		Name :	
+		<input type="text" name="Name" id="name" placeholder="enter your name">
+	
+		Age :
+		<input type="number" name="Age" id="age" placeholder="ener your age">		
+	
+		<div class="form-gender">
+			Gender :
+			<input type="checkbox" name="Gender">Male <input type="checkbox" name="Gender">Female	
+	</div>	
+	
+		Date of Birth :
+		
+		<input type="date" name="DOB" id="dob">
+		
+		Number :
+		<input type="number" name="Number" id="number" placeholder="enter your mobile number">
+
+		Gmail :
+		<input type="Gmail" name="Gmail" id="gmail" placeholder="enter your EMAIL id">
+	</div>
+		
+	 
+	<button type="button" id="submit" onclick="valid()">SUBMIT</button>
+
+</div>
+	</div>
+
+	<table border="4" id="show">
+	
+		<tr>
+			<th>NAME</th>
+			<th>AGE</th>
+			<th>DOB</th>
+			<th>NUMBER</th>
+			<th>GMAIL ID</th>
+		</tr>
+	
+</table>
+
+</form>
+
+
+	
+<!--
+	function validate(){
+		const form = document.getElementById("full-form");
+		var name = document.getElementById("name");
+		var age = document.getElementById("age");
+		var dob = document.getElementById("dob");
+		var number = document.getElementById("number");
+		var gmail = document.getElementById("gmail");
+
+		if(name.value === "" ){
+			alert("invalid Username")
+		}else if(dob.value === ""){
+			alert(" invalid Date of birth")
+		}
+		else if(age.value.trim() === ""){
+			alert("invalid Age")
+		}
+		else if(number.value.trim() === "" ){
+			alert("invalid Mobile Number")
+		}
+		else(gmail.value.trim() === ""){
+			alert(" invalid Email ID")
+		}
+	}
+ -->
+
+</body>
+</html>
